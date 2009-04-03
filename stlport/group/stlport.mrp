@@ -1,0 +1,8 @@
+component	dev_hostenv_cpptoolsplat_stlport
+
+source		\src\tools\dev\hostenv\cpptoolsplat\stlport
+binary		\src\tools\dev\hostenv\cpptoolsplat\stlport\group all
+exports		\src\tools\dev\hostenv\cpptoolsplat\stlport\group
+notes_source	\component_defs\release.src
+
+ipr T

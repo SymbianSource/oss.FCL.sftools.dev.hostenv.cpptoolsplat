@@ -1,0 +1,9 @@
+component	dev_hostenv_cpptoolsplat_mingw-gcc-3.4.5
+
+source		\src\tools\dev\hostenv\cpptoolsplat\mingw-gcc-3.4.5
+exports		\src\tools\dev\hostenv\cpptoolsplat\mingw-gcc-3.4.5
+notes_source	\component_defs\release.src
+
+ipr T
+ipr O  \src\tools\dev\hostenv\cpptoolsplat\mingw-gcc-3.4.5
+
