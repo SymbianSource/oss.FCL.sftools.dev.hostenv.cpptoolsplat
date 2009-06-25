@@ -1,0 +1,158 @@
+# Copyright (c) 2007-2009 Nokia Corporation and/or its subsidiary(-ies).
+# All rights reserved.
+# This component and the accompanying materials are made available
+# under the terms of the License "Symbian Foundation License v1.0"
+# which accompanies this distribution, and is available
+# at the URL "http://www.symbianfoundation.org/legal/sfl-v10.html".
+#
+# Initial Contributors:
+# Nokia Corporation - initial contribution.
+#
+# Contributors:
+#
+# Description:
+# FLM to build x86 exes, libs and dlls
+#
+
+include $(FLMHOME)/flmtools.mk
+include $(FLMHOME)/metaflm.mk
+
+CREATABLEPATHS:=
+CLEANTARGETS:=
+
+# Handle Window/Linux differences
+ifeq ($(OSTYPE),cygwin)
+  DOTDLL:=.dll
+  WIN32:=1
+  GCOVDIR:=$(if $(CODE_COVERAGE),$(EPOCROOT)/epoc32/gcc_mingw/libgcc/mingw32/3.4.5/)
+else
+  DOTDLL:=.so
+endif
+
+# Product include files are different for S60
+ifdef S60_BUILD
+  PRODUCT_INCLUDE:=$(EPOCROOT)/epoc32/include/oem/bldvariant.hrh
+else
+  PRODUCT_INCLUDE:=$(EPOCROOT)/epoc32/include/variant/Symbian_OS.hrh
+endif
+
+# Define macros we need
+CXXDEFS:=$(foreach def,$(MACROS),-D$(def)) -D__SYMBIAN32__ -D__GCC32__ -D__EPOC32__ -D__X86__ -D_UNICODE -D__SUPPORT_CPP_EXCEPTIONS__ -D__TOOLS2__ -D'__PRODUCT_INCLUDE__="$(PRODUCT_INCLUDE)"'
+ifeq ($(CFG_PATH),deb)
+  CXXDEFS+= -D_DEBUG
+endif
+
+# Setup the command line options for the compiler
+OPTIMISE:=-fdefer-pop -fmerge-constants -fthread-jumps -floop-optimize -fif-conversion -fif-conversion2 -fguess-branch-probability -fcprop-registers -fforce-mem -foptimize-sibling-calls -fstrength-reduce -fcse-follow-jumps -fcse-skip-blocks -frerun-cse-after-loop -frerun-loop-opt -fgcse -fgcse-lm -fgcse-sm -fgcse-las -fdelete-null-pointer-checks -fexpensive-optimizations -fregmove -fschedule-insns -fschedule-insns2 -fsched-interblock -fsched-spec -fcaller-saves -fpeephole2 -freorder-blocks -freorder-functions -fstrict-aliasing -funit-at-a-time -falign-functions -falign-jumps -falign-loops -falign-labels -fcrossjumping
+
+PREINC=$(EPOCROOT)/epoc32/include/x86tool/x86tool.h
+ifeq ($(CFG_PATH),deb)
+  CXXOPT:=-fshort-wchar -x c++ -O0 -g3 -Wall -c -fmessage-length=0 -include $(PREINC)
+else
+  CXXOPT:=-fshort-wchar -x c++ -Wall -c -fmessage-length=0 -include $(PREINC) $(if $(CODE_COVERAGE),-O0,$(OPTIMISE))
+endif
+
+# Allow specification of additional build include file
+ifdef BUILDINC
+  CXXOPT+= -include $(BUILDINC)
+endif
+
+# Extra options needed for cia files
+ASMOPT:=-fomit-frame-pointer -masm=intel
+
+# Linker options for DLL
+ifndef DLL_WIN_LINKER_OPTS
+  DLL_WIN_LINKER_OPTS:=$(if $(CODE_COVERAGE),-lgcov) -Wl,-export-all-symbols -Wl,--enable-auto-import
+endif
+ifndef DLL_LIN_LINKER_OPTS
+  DLL_LIN_LINKER_OPTS:=$(if $(CODE_COVERAGE),-lgcov) -Wl,-export-all-symbols -ldl
+endif
+
+# Source files to scan for in a directory
+# Note that CPP and cpp will match on the same files - so a sort is necessary on wildcard results
+SOURCE_EXT:=CPP cpp c cia
+
+# Source code assumed to be all cpp/cia files in supplied directories
+SOURCE_FILES:=$(foreach dir,$(SOURCE_DIRS),$(sort $(foreach ext,$(SOURCE_EXT),$(wildcard $(EXTENSION_ROOT)/$(dir)/*.$(ext))))) \
+  $(foreach src,$(SOURCE),$(EXTENSION_ROOT)/$(if $(SOURCE_FOLDER),$(SOURCE_FOLDER)/)$(src))
+
+# Include folders
+CXXINC:=$(foreach inc,$(INCLUDES) $(SOURCE_DIRS),-I$(EXTENSION_ROOT)/$(inc)) \
+  $(foreach inc,$(SYS_INCLUDES),-I$(EPOCROOT)/$(inc)) -I$(EXTENSION_ROOT)
+
+# Add standard include paths?
+ifndef NO_STD_INCLUDE
+  CXXINC+= -I$(EPOCROOT)/epoc32/include/x86tool -I$(EPOCROOT)/epoc32/include
+  ifdef S60_BUILD
+    CXXINC+= -I$(EPOCROOT)/epoc32/include/oem
+  endif
+endif
+
+# Generate target folder names
+TARGET_DIR:=$(EPOCROOT)/epoc32/release/tools2$(TOOLPLATFORMDIR)/$(CFG_PATH)/
+OUTPUTPATH:=$(EPOCROOT)/epoc32/build/x86tools/$(CFG_PATH)/$(TARGET_NAME)/
+
+# Target names differ depending on what we're building
+ifeq ($(TARGET_TYPE),lib)
+  TARGET_FULLNAME:=$(TARGET_DIR)lib$(TARGET_NAME)$(if $(findstring .,$(TARGET_NAME)),,.a)
+endif
+ifeq ($(TARGET_TYPE),exe)
+  TARGET_FULLNAME:=$(TARGET_DIR)$(TARGET_NAME)$(if $(findstring .,$(TARGET_NAME)),,$(DOTEXE))
+  LIBS+=symexestub
+endif
+ifeq ($(TARGET_TYPE),dll)
+  TARGET_FULLNAME:=$(TARGET_DIR)lib$(TARGET_NAME)$(if $(findstring .,$(TARGET_NAME)),,$(DOTDLL))
+endif
+
+# Object files are the same name as the source files with a .o extension
+OBJECTFILES:=$(foreach src,$(SOURCE_FILES),$(OUTPUTPATH)$(subst $(EPOCROOT),,$(src)).o)
+
+# Remember what we're going to create for later
+CLEANTARGETS:=$(TARGET_FULLNAME) $(OBJECTFILES)
+RELEASEABLES:=$(TARGET_FULLNAME)
+CREATABLEPATHS:=$(dir $(OBJECTFILES))
+
+# Standard targets
+$(ALLTARGET):: $(RELEASEABLES)
+TARGET:: $(RELEASEABLES)
+
+# ***
+# x86targets
+# 
+define x86targets
+  # Compile
+  $(OBJECTFILES) : $(PREINC) $(SOURCE_FILES)
+		$(call startrule,compile) \
+		$(CXX) $(CXXDEFS) $(CXXINC) -I$(EPOCROOT)$$(subst $(OUTPUTPATH),,$$(dir $$@)) $(CXXOPT) $$(if $$(findstring .cia,$$@),$(ASMOPT),$(if $(CODE_COVERAGE),-fprofile-arcs -ftest-coverage)) $(COMPILE_OPTIONS) -o$$@ $(EPOCROOT)$$(subst $(OUTPUTPATH),,$$(basename $$@)) \
+		$(call endrule,compile)
+
+  # Link
+  $(TARGET_FULLNAME) : $(OBJECTFILES) $(foreach lib,$(LIBS),$(TARGET_DIR)lib$(lib).a) $(foreach lib,$(SHARED_LIBS),$(TARGET_DIR)lib$(lib)$(DOTDLL))
+  ifeq ($(TARGET_TYPE),lib)
+		$(call startrule,linklib) \
+		$(AR) -r $$@ $(OBJECTFILES) \
+		$(call endrule,linklib)
+  endif
+  ifeq ($(TARGET_TYPE),exe)
+		$(call startrule,linkexe) \
+		$(CXX) -L$(TARGET_DIR) $(if $(GCOVDIR),-L$(GCOVDIR)) -o$$@ $(OBJECTFILES) $(foreach lib,$(LIBS) $(SHARED_LIBS),-l$(lib)) $(if $(CODE_COVERAGE),-lgcov) $(if $(WIN32),-Wl$(CHAR_COMMA)--enable-auto-import,-ldl) \
+		$(call endrule,linkexe)
+  endif
+  ifeq ($(TARGET_TYPE),dll)
+		$(call startrule,linkdll) \
+		$(CXX) -L$(TARGET_DIR) $(if $(GCOVDIR),-L$(GCOVDIR)) -shared -o$$@ $(OBJECTFILES) $(foreach lib,$(LIBS) $(SHARED_LIBS), -l$(lib)) $(if $(WIN32),$(DLL_WIN_LINKER_OPTS),$(DLL_LIN_LINKER_OPTS)) \
+		$(call endrule,linkdll)
+  endif
+endef
+
+# Generate the rules
+$(eval $(x86targets))
+
+# Create folders we need
+$(call makepath,$(CREATABLEPATHS))
+
+# Cleanup after ourselves
+$(eval $(call GenerateStandardCleanTarget,$(CLEANTARGETS),$(CREATABLEPATHS)))
+
+# Tell SBS what we're building
+$(eval $(call whatmacro,$(RELEASEABLES),WHATTOOLS2))

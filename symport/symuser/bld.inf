@@ -1,0 +1,275 @@
+// Copyright (c) 1997-2009 Nokia Corporation and/or its subsidiary(-ies).
+// All rights reserved.
+// This component and the accompanying materials are made available
+// under the terms of the License "Symbian Foundation License v1.0"
+// which accompanies this distribution, and is available
+// at the URL "http://www.symbianfoundation.org/legal/sfl-v10.html".
+//
+// Initial Contributors:
+// Nokia Corporation - initial contribution.
+//
+// Contributors:
+//
+// Description:
+//
+
+PRJ_PLATFORMS
+TOOLS2
+
+PRJ_EXTENSIONS
+
+#ifdef TOOLS2
+start extension tools/x86tool
+
+	option TARGET_NAME symuser
+	option TARGET_TYPE lib
+
+	option MACROS __MINIMUM_MACHINE_CODE__ __CPU_HAS_CP15_THREAD_ID_REG __USERSIDE_THREAD_DATA__
+	option INCLUDES ../e32/include ../bafl/inc ../charconv/framework/inc
+
+	option SOURCE_DIRS ../e32/common ../e32/euser ../e32/euser/cbase ../e32/euser/epoc/x86 ../e32/euser/maths ../e32/euser/unicode \
+		../bafl/src ../charconv/framework/src/charconv
+
+	option SOURCE_FOLDER .
+	option SOURCE symuser.cpp exec.cpp new.cpp loader.cpp x86hlp.cia
+	option COMPILE_OPTIONS -Wno-return-type
+end
+
+start extension tools/x86tool
+
+	option TARGET_NAME symexestub
+	option TARGET_TYPE lib
+	option SOURCE exestub.cpp
+
+	option INCLUDES ../e32/include
+end
+#endif
+
+PRJ_TESTEXPORTS
+
+../e32test/buffer/UnicodeData.txt    z:/test/unicodedata.txt
+
+PRJ_TESTEXTENSIONS
+
+#ifdef TOOLS2
+start extension tools/x86tool
+	option TARGET_NAME t_bflat
+	option TARGET_TYPE exe
+	option SOURCE ../e32test/buffer/t_bflat.cpp
+	option LIBS symuser
+end
+
+start extension tools/x86tool
+	option TARGET_NAME t_bseg
+	option TARGET_TYPE exe
+	option SOURCE ../e32test/buffer/t_bseg.cpp
+	option LIBS symuser
+end
+
+start extension tools/x86tool
+	option TARGET_NAME t_buf
+	option TARGET_TYPE exe
+	option SOURCE ../e32test/buffer/t_buf.cpp
+	option LIBS symuser
+end
+
+start extension tools/x86tool
+	option TARGET_NAME t_rbuf
+	option TARGET_TYPE exe
+	option SOURCE ../e32test/buffer/t_rbuf.cpp
+	option LIBS symuser
+end
+
+start extension tools/x86tool
+	option TARGET_NAME t_char
+	option TARGET_TYPE exe
+	option SOURCE ../e32test/buffer/t_char.cpp
+	option LIBS symuser
+end
+
+start extension tools/x86tool
+	option TARGET_NAME t_circ
+	option TARGET_TYPE exe
+	option SOURCE ../e32test/buffer/t_circ.cpp
+	option LIBS symuser
+end
+
+start extension tools/x86tool
+	option TARGET_NAME t_collate
+	option TARGET_TYPE exe
+	option SOURCE ../e32test/buffer/t_collate.cpp
+	option LIBS symuser
+end
+
+start extension tools/x86tool
+	option TARGET_NAME t_des
+	option TARGET_TYPE exe
+	option SOURCE ../e32test/buffer/t_des.cpp
+	option LIBS symuser
+end
+
+start extension tools/x86tool
+	option TARGET_NAME t_farray
+	option TARGET_TYPE exe
+	option SOURCE ../e32test/buffer/t_farray.cpp
+	option LIBS symuser
+end
+
+start extension tools/x86tool
+	option TARGET_NAME t_func
+	option TARGET_TYPE exe
+	option SOURCE ../e32test/buffer/t_func.cpp
+	option LIBS symuser
+end
+
+start extension tools/x86tool
+	option TARGET_NAME t_graph
+	option TARGET_TYPE exe
+	option SOURCE ../e32test/buffer/t_graph.cpp
+	option LIBS symuser
+end
+
+start extension tools/x86tool
+	option TARGET_NAME t_key
+	option TARGET_TYPE exe
+	option SOURCE ../e32test/buffer/t_key.cpp
+	option LIBS symuser
+end
+
+start extension tools/x86tool
+	option TARGET_NAME t_lex
+	option TARGET_TYPE exe
+	option SOURCE ../e32test/buffer/t_lex.cpp
+	option LIBS symuser
+end
+
+start extension tools/x86tool
+	option TARGET_NAME t_match
+	option TARGET_TYPE exe
+	option INCLUDES ../e32/euser/unicode
+	option SOURCE ../e32test/buffer/t_match.cpp
+	option LIBS symuser symfile
+end
+
+start extension tools/x86tool
+	option TARGET_NAME t_parray
+	option TARGET_TYPE exe
+	option SOURCE ../e32test/buffer/t_parray.cpp
+	option LIBS symuser
+end
+
+start extension tools/x86tool
+	option TARGET_NAME t_que
+	option TARGET_TYPE exe
+	option SOURCE ../e32test/buffer/t_que.cpp
+	option LIBS symuser
+end
+
+start extension tools/x86tool
+	option TARGET_NAME t_readar
+	option TARGET_TYPE exe
+	option SOURCE ../e32test/buffer/t_readar.cpp
+	option LIBS symuser
+end
+
+start extension tools/x86tool
+	option TARGET_NAME t_regn
+	option TARGET_TYPE exe
+	option SOURCE ../e32test/buffer/t_regn.cpp
+	option LIBS symuser
+end
+
+start extension tools/x86tool
+	option TARGET_NAME t_sque
+	option TARGET_TYPE exe
+	option SOURCE ../e32test/buffer/t_sque.cpp
+	option LIBS symuser
+end
+
+start extension tools/x86tool
+	option TARGET_NAME t_varray
+	option TARGET_TYPE exe
+	option SOURCE ../e32test/buffer/t_varray.cpp
+	option LIBS symuser
+end
+
+start extension tools/x86tool
+	option TARGET_NAME t_versio
+	option TARGET_TYPE exe
+	option SOURCE ../e32test/buffer/t_versio.cpp
+	option LIBS symuser
+end
+
+start extension tools/x86tool
+	option TARGET_NAME t_hashtab
+	option TARGET_TYPE exe
+	option SOURCE ../e32test/buffer/t_hashtab.cpp
+	option LIBS symuser
+end
+
+start extension tools/x86tool
+	option TARGET_NAME T_FoldPerf
+	option TARGET_TYPE exe
+	option SOURCE ../e32test/buffer/T_FoldPerf.cpp
+	option LIBS symuser
+end
+
+start extension tools/x86tool
+	option TARGET_NAME t_huff
+	option TARGET_TYPE exe
+	option SOURCE ../e32test/buffer/t_huff.cpp
+	option LIBS symuser
+end
+
+start extension tools/x86tool
+	option TARGET_NAME t_float
+	option TARGET_TYPE exe
+	option SOURCE ../e32test/math/t_float.cpp ../e32test/math/t_float1.cpp ../e32test/math/t_float2.cpp ../e32test/math/t_float3.cpp ../e32test/math/t_fltcl.cpp
+	option LIBS symuser
+end
+
+start extension tools/x86tool
+	option TARGET_NAME t_i64
+	option TARGET_TYPE exe
+	option SOURCE ../e32test/math/t_i64.cpp
+	option LIBS symuser
+end
+
+start extension tools/x86tool
+	option TARGET_NAME t_i64_2
+	option TARGET_TYPE exe
+	option SOURCE ../e32test/math/t_i64_2.cpp ../e32test/math/largeint.cpp
+	option LIBS symuser
+end
+
+
+start extension tools/x86tool
+	option TARGET_NAME t_math
+	option TARGET_TYPE exe
+	option SOURCE ../e32test/math/t_math.cpp
+	option LIBS symuser
+end
+
+
+start extension tools/x86tool
+	option TARGET_NAME t_math2
+	option TARGET_TYPE exe
+	option SOURCE ../e32test/math/t_math2.cpp
+	option LIBS symuser
+end
+
+start extension tools/x86tool
+	option TARGET_NAME t_trap
+	option TARGET_TYPE exe
+	option SOURCE ../e32test/system/t_trap.cpp
+	option LIBS symuser
+end
+
+start extension tools/x86tool
+	option TARGET_NAME t_ctrap
+	option TARGET_TYPE exe
+	option SOURCE ../e32test/system/t_ctrap.cpp
+	option LIBS symuser
+end
+
+#endif

@@ -1,0 +1,112 @@
+// Copyright (c) 1997-2009 Nokia Corporation and/or its subsidiary(-ies).
+// All rights reserved.
+// This component and the accompanying materials are made available
+// under the terms of the License "Symbian Foundation License v1.0"
+// which accompanies this distribution, and is available
+// at the URL "http://www.symbianfoundation.org/legal/sfl-v10.html".
+//
+// Initial Contributors:
+// Nokia Corporation - initial contribution.
+//
+// Contributors:
+//
+// Description:
+//
+
+PRJ_PLATFORMS
+TOOLS2
+
+PRJ_EXPORTS
+
+../inc/x86tool.h		/epoc32/include/x86tool/x86tool.h
+../f32/inc/f32file.h		/epoc32/include/x86tool/f32file.h
+../f32/inc/f32file.inl		/epoc32/include/x86tool/f32file.inl
+
+../e32/include/cpudefs.h /epoc32/include/x86tool/cpudefs.h
+../e32/include/d32locd.h /epoc32/include/x86tool/d32locd.h
+../e32/include/d32locd.inl /epoc32/include/x86tool/d32locd.inl
+../e32/include/e32base.h /epoc32/include/x86tool/e32base.h
+../e32/include/e32base.inl /epoc32/include/x86tool/e32base.inl
+../e32/include/e32btrace.h /epoc32/include/x86tool/e32btrace.h
+../e32/include/e32cmn.h /epoc32/include/x86tool/e32cmn.h
+../e32/include/e32cmn.inl /epoc32/include/x86tool/e32cmn.inl
+../e32/include/e32const.h /epoc32/include/x86tool/e32const.h
+../e32/include/e32def.h /epoc32/include/x86tool/e32def.h
+../e32/include/e32kpan.h /epoc32/include/x86tool/e32kpan.h
+../e32/include/e32lang.h /epoc32/include/x86tool/e32lang.h
+../e32/include/e32ldr.h /epoc32/include/x86tool/e32ldr.h
+../e32/include/e32math.h /epoc32/include/x86tool/e32math.h
+../e32/include/e32panic.h /epoc32/include/x86tool/e32panic.h
+../e32/include/e32rom.h /epoc32/include/x86tool/e32rom.h
+../e32/include/e32std.h /epoc32/include/x86tool/e32std.h
+../e32/include/e32std.inl /epoc32/include/x86tool/e32std.inl
+../e32/include/e32ver.h /epoc32/include/x86tool/e32ver.h
+../e32/include/partitions.h /epoc32/include/x86tool/partitions.h
+../e32/include/u32exec.h /epoc32/include/x86tool/u32exec.h
+../e32/include/u32hal.h /epoc32/include/x86tool/u32hal.h
+../e32/include/u32std.h /epoc32/include/x86tool/u32std.h
+../e32/include/e32shbufcmn.h /epoc32/include/x86tool/e32shbufcmn.h
+../e32/include/e32shbuf_priv.h /epoc32/include/x86tool/e32shbuf_priv.h
+../e32/include/collate.h /epoc32/include/x86tool/collate.h
+../e32/include/e32base_private.h /epoc32/include/x86tool/e32base_private.h 
+../e32/include/e32capability.h /epoc32/include/x86tool/e32capability.h
+../e32/include/e32cmn_private.h  /epoc32/include/x86tool/e32cmn_private.h  
+../e32/include/e32cons.h  /epoc32/include/x86tool/e32cons.h  
+../e32/include/e32const_private.h  /epoc32/include/x86tool/e32const_private.h  
+../e32/include/e32debug.h  /epoc32/include/x86tool/e32debug.h  
+../e32/include/e32def_private.h  /epoc32/include/x86tool/e32def_private.h  
+../e32/include/e32des16.h  /epoc32/include/x86tool/e32des16.h  
+../e32/include/e32des16_private.h  /epoc32/include/x86tool/e32des16_private.h  
+../e32/include/e32des8.h  /epoc32/include/x86tool/e32des8.h  
+../e32/include/e32des8_private.h  /epoc32/include/x86tool/e32des8_private.h  
+../e32/include/e32err.h  /epoc32/include/x86tool/e32err.h  
+../e32/include/e32event.h  /epoc32/include/x86tool/e32event.h  
+../e32/include/e32event_private.h  /epoc32/include/x86tool/e32event_private.h  
+../e32/include/e32hal.h  /epoc32/include/x86tool/e32hal.h  
+../e32/include/e32hashtab.h  /epoc32/include/x86tool/e32hashtab.h  
+../e32/include/e32huffman.h  /epoc32/include/x86tool/e32huffman.h  
+../e32/include/e32keys.h  /epoc32/include/x86tool/e32keys.h  
+../e32/include/e32ktran.h  /epoc32/include/x86tool/e32ktran.h  
+../e32/include/e32lmsg.h  /epoc32/include/x86tool/e32lmsg.h  
+../e32/include/e32math.inl  /epoc32/include/x86tool/e32math.inl  
+../e32/include/e32notif.h  /epoc32/include/x86tool/e32notif.h  
+../e32/include/e32power.h  /epoc32/include/x86tool/e32power.h  
+../e32/include/e32property.h  /epoc32/include/x86tool/e32property.h  
+../e32/include/e32std_private.h  /epoc32/include/x86tool/e32std_private.h  
+../e32/include/e32svr.h  /epoc32/include/x86tool/e32svr.h  
+../e32/include/e32test.h  /epoc32/include/x86tool/e32test.h  
+../e32/include/u32property.h  /epoc32/include/x86tool/u32property.h  
+../e32/include/unicode.h  /epoc32/include/x86tool/unicode.h  
+../e32/include/videodriver.h  /epoc32/include/x86tool/videodriver.h  
+
+// Export the symport dll import library
+// This is only needed for the old build system to avoid a build order dependency with anything using the symport dll
+libsymport.a /epoc32/release/tools2/deb/libsymport.a
+libsymport.a /epoc32/release/tools2/rel/libsymport.a
+
+#include "../symuser/bld.inf"
+#include "../symfile/bld.inf"
+#include "../symutil/group/bld.inf"
+
+PRJ_EXTENSIONS
+
+#ifdef TOOLS2
+// Build DLL version of the port - contains both symuser and symfile
+start extension tools/x86tool
+
+	option TARGET_NAME symport
+	option TARGET_TYPE dll
+
+	option MACROS __MINIMUM_MACHINE_CODE__ __CPU_HAS_CP15_THREAD_ID_REG __USERSIDE_THREAD_DATA__
+	option INCLUDES ../e32/include ../bafl/inc ../charconv/framework/inc ../f32/inc ../symuser
+
+	option SOURCE_DIRS ../e32/common ../e32/euser ../e32/euser/cbase ../e32/euser/epoc/x86 ../e32/euser/maths ../e32/euser/unicode \
+		../bafl/src ../charconv/framework/src/charconv \
+		../f32/sfsrv
+		
+	option SOURCE_FOLDER ../symuser
+	option SOURCE symuser.cpp exec.cpp new.cpp loader.cpp x86hlp.cia \
+		../group/ver.cpp
+	option COMPILE_OPTIONS -Wno-return-type
+end
+#endif

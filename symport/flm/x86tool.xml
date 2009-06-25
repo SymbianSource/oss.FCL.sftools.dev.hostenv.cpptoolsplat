@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<build xmlns="http://symbian.com/xml/build"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://symbian.com/xml/build http://symbian.com/xml/build/2_0.xsd">
+
+	<interface name="tools.x86tool" extends="Symbian.UserFLM" flm="tools/x86tool.flm">
+		<param name="TARGET_NAME" /> 
+		<param name="TARGET_TYPE" /> 
+		<param name="MACROS" default="" /> 
+		<param name="INCLUDES" default="" /> 
+		<param name="SOURCE_DIRS" default="" /> 
+		<param name="SOURCE_FOLDER" default="" /> 
+		<param name="SOURCE" default="" /> 
+		<param name="NO_STD_INCLUDE" default="" /> 
+		<param name="LIBS" default="" />
+		<param name="SHARED_LIBS" default="" />
+		<param name="CODE_COVERAGE" default="" />
+		<param name="COMPILE_OPTIONS" default="" />
+		<param name="S60_BUILD" default="" />
+		<param name="BUILDINC" default="" />
+		<param name="DLL_WIN_LINKER_OPTS" default="" />
+		<param name="DLL_LIN_LINKER_OPTS" default="" />
+	</interface>
+
+</build>

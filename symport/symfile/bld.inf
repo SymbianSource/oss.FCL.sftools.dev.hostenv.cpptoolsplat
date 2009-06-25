@@ -1,0 +1,59 @@
+// Copyright (c) 1997-2009 Nokia Corporation and/or its subsidiary(-ies).
+// All rights reserved.
+// This component and the accompanying materials are made available
+// under the terms of the License "Symbian Foundation License v1.0"
+// which accompanies this distribution, and is available
+// at the URL "http://www.symbianfoundation.org/legal/sfl-v10.html".
+//
+// Initial Contributors:
+// Nokia Corporation - initial contribution.
+//
+// Contributors:
+//
+// Description:
+//
+
+PRJ_PLATFORMS
+WINSCW TOOLS2
+
+PRJ_EXTENSIONS
+
+#ifdef TOOLS2
+start extension tools/x86tool
+
+	option TARGET_NAME symfile
+	option TARGET_TYPE lib
+
+	option SOURCE_DIRS ../f32/sfsrv
+	option INCLUDES ../e32/include ../f32/inc
+
+//	option MACROS _DEBUG_LOGGING
+end
+#endif
+
+PRJ_TESTMMPFILES
+
+#ifdef WINSCW
+t_symfile
+#endif
+
+PRJ_TESTEXTENSIONS
+
+#ifdef TOOLS2
+start extension tools/x86tool
+
+	option TARGET_NAME t_symfile
+	option TARGET_TYPE exe
+	option SOURCE test.cpp
+	option LIBS symfile symuser
+end
+
+start extension tools/x86tool
+
+	option TARGET_NAME t_symfile_dll
+	option TARGET_TYPE exe
+	option SOURCE test.cpp
+	option SHARED_LIBS symport
+	option MACROS USING_SYMPORT_DLL
+end
+#endif

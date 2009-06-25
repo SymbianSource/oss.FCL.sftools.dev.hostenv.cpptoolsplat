@@ -1,0 +1,21 @@
+component		dev_hostenv_cpptoolsplat_symport
+
+source			/src/tools/dev/hostenv/cpptoolsplat/symport
+binary			/src/tools/dev/hostenv/cpptoolsplat/symport/group all
+exports			/src/tools/dev/hostenv/cpptoolsplat/symport/group
+
+notes_source	/src/tools/dev/hostenv/cpptoolsplat/symport/group/release.txt
+
+ipr T
+ipr D /src/tools/dev/hostenv/cpptoolsplat/symport/bafl
+ipr T /src/tools/dev/hostenv/cpptoolsplat/symport/bldtest
+ipr E /src/tools/dev/hostenv/cpptoolsplat/symport/charconv
+ipr D /src/tools/dev/hostenv/cpptoolsplat/symport/e32
+ipr D /src/tools/dev/hostenv/cpptoolsplat/symport/f32/inc
+ipr A /src/tools/dev/hostenv/cpptoolsplat/symport/f32/sfsrv
+ipr T /src/tools/dev/hostenv/cpptoolsplat/symport/flm
+ipr T /src/tools/dev/hostenv/cpptoolsplat/symport/group
+ipr T /src/tools/dev/hostenv/cpptoolsplat/symport/inc
+ipr T /src/tools/dev/hostenv/cpptoolsplat/symport/symfile
+ipr D /src/tools/dev/hostenv/cpptoolsplat/symport/symuser
+ipr T /src/tools/dev/hostenv/cpptoolsplat/symport/symutil
